@@ -124,4 +124,49 @@ public class StudentService {
         }
         sqlSession.close();
     }
+
+    public void updateScoreById () {
+        SqlSession sqlSession = MyBatisUtil.getSession();
+        StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+        Scanner scanner = new Scanner(System.in);
+        List<Student> students = mapper.showStudentList();
+        System.out.println("---------修改学生成绩---------");
+        if (students.isEmpty()) {
+            System.out.println("当前数据库无数据，请添加后重试");
+        } else {
+            System.out.println("请输入要修改学生的学号");
+            String id = scanner.nextLine();
+            Student student = new Student();
+
+            if (student == null) {
+                System.out.println("未找到对应学号学生信息，请确认后再更新！");
+            } else {
+                System.out.println("请重新输入该学生的成绩");
+                System.out.println("数学");
+                Double math = scanner.nextDouble();
+                System.out.println("英语");
+                Double english = scanner.nextDouble();
+                System.out.println("体育");
+                Double sport = scanner.nextDouble();
+                System.out.println("Java");
+                Double java = scanner.nextDouble();
+                System.out.println("前端");
+                Double frontend = scanner.nextDouble();
+                System.out.println("政治");
+                Double polity = scanner.nextDouble();
+                System.out.println("算法");
+                Double algorithm = scanner.nextDouble();
+
+                if (mapper.updateScoreById(student) > 0) {
+                    sqlSession.commit();
+                    System.out.println("---------更新成功---------");
+                }  else {
+                    System.out.println("---------更新失败---------");
+                }
+            }
+        }
+        sqlSession.close();
+    }
+
+    public void
 }

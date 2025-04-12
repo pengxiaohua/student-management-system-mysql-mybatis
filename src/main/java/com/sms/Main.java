@@ -32,10 +32,10 @@ public class Main {
                     // 查找对应学生成绩
                     studentService.queryStudentById();
                     break;
-//                case "3":
-//                    // 修改学生成绩
-//                    studentService.update();
-//                    break;
+                case "3":
+                    // 修改学生成绩
+                    studentService.updateScoreById();
+                    break;
 //                case "4":
 //                    // 删除学生成绩
 //                    studentService.delete();
