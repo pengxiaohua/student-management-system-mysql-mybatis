@@ -168,5 +168,32 @@ public class StudentService {
         sqlSession.close();
     }
 
-    public void
+    public void delete () {
+        SqlSession sqlSession = MyBatisUtil.getSession();
+        StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+        Scanner scanner = new Scanner(System.in);
+        List<Student> students = mapper.showStudentList();
+        System.out.println("---------删除学生成绩--------");
+
+        if (students.size() == 0) {
+            System.out.println("当前数据库无数据，请添加后重试");
+        }  else {
+            System.out.println("输入要删除学生成绩的学号");
+            String id = scanner.nextLine();
+
+            if (mapper.queryStudentById(id) == null) {
+                System.out.println("没找到学号对应的学生，请确认后再试");
+            } else {
+                if (mapper.deleteStudentById(id) > 0) {
+                    sqlSession.commit();
+                    System.out.println("---------删除成功---------");
+                } else {
+                    System.out.println("---------删除失败---------");
+                }
+            }
+        }
+        sqlSession.close();
+    }
+
+
 }

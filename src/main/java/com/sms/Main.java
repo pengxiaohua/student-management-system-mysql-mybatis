@@ -36,14 +36,14 @@ public class Main {
                     // 修改学生成绩
                     studentService.updateScoreById();
                     break;
-//                case "4":
-//                    // 删除学生成绩
-//                    studentService.delete();
-//                    break;
-//                case "5":
-//                    // 查询所有学生成绩
-//                    studentService.queryScores();
-//                    break;
+                case "4":
+                    // 删除学生成绩
+                    studentService.delete();
+                    break;
+                case "5":
+                    // 查询所有学生成绩
+                    studentService.queryScores();
+                    break;
                 case "0":
                     System.exit(0);
                     break;
