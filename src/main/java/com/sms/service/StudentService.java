@@ -25,9 +25,9 @@ public class StudentService {
     SqlSession sqlSession = MyBatisUtil.getSession();
     StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
     List<Student> students = mapper.showStudentList();
-    Student student = new Student();
 
     public void insertScore() {
+        Student student = new Student();
         Scanner scanner = new Scanner(System.in);
         System.out.println("--------录入学生成绩--------");
         System.out.println("请依次录入以下数据：");
@@ -132,7 +132,7 @@ public class StudentService {
         } else {
             System.out.println("请输入要修改学生的学号");
             String id = scanner.nextLine();
-            Student student = new Student();
+            Student student = mapper.queryStudentById(id);
 
             if (student == null) {
                 System.out.println("未找到对应学号学生信息，请确认后再更新！");
@@ -152,6 +152,16 @@ public class StudentService {
                 Double polity = scanner.nextDouble();
                 System.out.println("算法");
                 Double algorithm = scanner.nextDouble();
+
+                student.setSport(sport);
+                student.setEnglish(english);
+                student.setPolity(polity);
+                student.setMath(math);
+                student.setJava(java);
+                student.setFrontend(frontend);
+                student.setAlgorithm(algorithm);
+                student.setScore(sport + math + english + polity + java + frontend + algorithm);
+                student.setAverage(student.getScore() / 7);
 
                 if (mapper.updateScoreById(student) > 0) {
                     sqlSession.commit();
