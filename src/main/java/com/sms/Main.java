@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         while (true) {
             System.out.println("————————————欢迎使用学生成绩管理系统————————————");
-            System.out.println("------------【1】录入学生成绩————————————");
+            System.out.println("————————————【1】录入学生成绩————————————");
             System.out.println("————————————【2】查询学生成绩————————————");
             System.out.println("————————————【3】修改学生成绩————————————");
             System.out.println("————————————【4】删除学生成绩————————————");
@@ -38,7 +38,7 @@ public class Main {
                     break;
                 case "4":
                     // 删除学生成绩
-                    studentService.delete();
+                    studentService.deleteStudentById();
                     break;
                 case "5":
                     // 查询所有学生成绩

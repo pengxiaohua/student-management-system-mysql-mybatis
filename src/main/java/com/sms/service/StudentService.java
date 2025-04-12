@@ -22,10 +22,12 @@ public class StudentService {
         return existingStudent != null; // 存在返回 true，否则 false
     }
 
+    SqlSession sqlSession = MyBatisUtil.getSession();
+    StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+    List<Student> students = mapper.showStudentList();
+    Student student = new Student();
+
     public void insertScore() {
-        SqlSession sqlSession = MyBatisUtil.getSession();
-        Student student = new Student();
-        StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
         Scanner scanner = new Scanner(System.in);
         System.out.println("--------录入学生成绩--------");
         System.out.println("请依次录入以下数据：");
@@ -94,11 +96,8 @@ public class StudentService {
     }
 
     public void queryStudentById() {
-        SqlSession sqlSession = MyBatisUtil.getSession();
-        StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
         Scanner scanner = new Scanner(System.in);
         System.out.println("---------查找学生成绩---------");
-        List<Student> students = mapper.showStudentList();
         Student result = new Student();
 
         Boolean flag = false;
@@ -126,10 +125,7 @@ public class StudentService {
     }
 
     public void updateScoreById () {
-        SqlSession sqlSession = MyBatisUtil.getSession();
-        StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
         Scanner scanner = new Scanner(System.in);
-        List<Student> students = mapper.showStudentList();
         System.out.println("---------修改学生成绩---------");
         if (students.isEmpty()) {
             System.out.println("当前数据库无数据，请添加后重试");
@@ -168,11 +164,8 @@ public class StudentService {
         sqlSession.close();
     }
 
-    public void delete () {
-        SqlSession sqlSession = MyBatisUtil.getSession();
-        StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+    public void deleteStudentById () {
         Scanner scanner = new Scanner(System.in);
-        List<Student> students = mapper.showStudentList();
         System.out.println("---------删除学生成绩--------");
 
         if (students.size() == 0) {
@@ -195,5 +188,16 @@ public class StudentService {
         sqlSession.close();
     }
 
-
+    public void queryScores () {
+        if (students.size() == 0) {
+            System.out.println("数据库当前无数据，请先添加数据");
+        } else {
+            System.out.println("----------所有学生成绩如下----------");
+            System.out.println("学号\t\t班级\t\t姓名\t\t数学\t\t英语\t\t体育\t\tJava\t\t前端\t\t政治\t\t算法\t\t平均分\t\t总分");
+            for (Student student : students) {
+                System.out.format("%s\t\t%s\t\t%s\t\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\t%.2f\n", student.getId(), student.getGrade(), student.getName(), student.getMath(), student.getEnglish(), student.getSport(), student.getJava(), student.getFrontend(), student.getPolity(), student.getAlgorithm(), student.getAverage(), student.getScore());
+            }
+        }
+        sqlSession.close();
+    }
 }
