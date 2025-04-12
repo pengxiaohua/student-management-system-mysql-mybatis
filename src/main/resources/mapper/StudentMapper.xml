@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sms.dao.StudentMapper">
+
+    <insert id="insertScore" parameterType="com.sms.model.Student">
+        INSERT INTO student (id, name, grade, math, english, sport, polity, java, frontend, algorithm, score,
+                             average)
+        VALUES (#{id}, #{name}, #{grade}, #{math}, #{english}, #{sport}, #{polity}, #{java}, #{frontend}, #{algorithm},
+                #{score}, #{average})
+    </insert>
+
+    <update id="updateScoreById" parameterType="com.sms.model.Student">
+        UPDATE student
+        SET math        = #{math},
+            english     = #{english},
+            sport       = #{sport},
+            polity      = #{polity},
+            java        = #{java},
+            frontend    = #{frontend},
+            algorithm   = #{algorithm},
+            score       = #{score},
+            average     = #{average}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE
+        FROM student
+        WHERE id = #{id}
+    </delete>
+
+    <select id="showStudentList" resultType="com.sms.model.Student">
+        SELECT *
+        FROM student
+    </select>
+
+    <select id="queryStudentById" resultType="com.sms.model.Student">
+        SELECT *
+        FROM student
+        WHERE id = #{id}
+    </select>
+
+</mapper>
